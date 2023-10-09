@@ -18,8 +18,8 @@
 // - The output element is going to be a Vector of strings.
 // No hints this time!
 
-// I AM NOT DONE
 
+#[derive(PartialEq, Eq)]
 pub enum Command {
     Uppercase,
     Trim,
@@ -30,42 +30,60 @@ mod my_module {
     use super::Command;
 
     // TODO: Complete the function signature!
+    // pub fn transformer(input: Vec<(String, Command)>) -> Vec<String> {
+    //     // TODO: Complete the output declaration!
+    //     let mut output: Vec<String> = vec![];
+    //     for (string, command) in input.iter() {
+    //         match command {
+    //             Command::Uppercase => output.push(to_uppercase(&string)),
+    //             Command::Trim => output.push(trim(&string)),
+    //             // I get a mismatched type error here
+    //             Command::Append(n) => output.push(append_bar(&string, n)),
+    //         }
+    //     }
+    //     output
+    // }
+
+    // fn to_uppercase(string: &str) -> String {
+    //     string.to_uppercase()
+    // }
+
+    // fn trim(string: &str) -> String {
+    //     string.trim().to_string()
+    // }
+
+    // fn append_bar(string: &str, count: usize) -> String {
+    //     let bar_list: Vec<&str> = Vec::new();
+    //     let mut result = String::from(string);
+    //     for _ in 0..count {
+    //         result += "bar";
+    //     }
+    //     result
+    // }
+
     pub fn transformer(input: Vec<(String, Command)>) -> Vec<String> {
-        // TODO: Complete the output declaration!
+        // DONE: Complete the output declaration!
         let mut output: Vec<String> = vec![];
         for (string, command) in input.iter() {
-            match command {
-                Command::Uppercase => output.push(to_uppercase(&string)),
-                Command::Trim => output.push(trim(&string)),
-                // I get a mismatched type error here
-                Command::Append(n) => output.push(append_bar(&string, n)),
+            // DONE: Complete the function body. You can do it!
+            if let Command::Append(size) = *command {
+                output.push(format!("{}{}", string, "bar".repeat(size)));
+            } else if *command == Command::Uppercase {
+                output.push(string.to_uppercase())
+            } else {
+                output.push(string.trim().into())
             }
         }
         output
     }
-
-    fn to_uppercase(string: &str) -> String {
-        string.to_uppercase()
-    }
-
-    fn trim(string: &str) -> String {
-        string.trim().to_string()
-    }
-
-    fn append_bar(string: &str, count: usize) -> String {
-        let bar_list: Vec<&str> = Vec::new();
-        let mut result = String::from(string);
-        for _ in 0..count {
-            result += "bar";
-        }
-        result
-    }
+    
 }
 
 #[cfg(test)]
 mod tests {
     // TODO: What do we have to import to have `transformer` in scope?
-    use my_module::transformer;
+    use super::my_module::transformer;
+    
     use super::Command;
 
     #[test]
